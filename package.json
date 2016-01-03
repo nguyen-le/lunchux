@@ -1,0 +1,28 @@
+{
+  "name": "lunchux",
+  "version": "0.0.1",
+  "description": "Electronic lunch application.",
+  "engines": {
+    "node": "4.2.4"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nguyen-le/lunchux.git"
+  },
+  "keywords": [],
+  "author": "Nguyen Le",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nguyen-le/lunchux/issues"
+  },
+  "homepage": "https://github.com/nguyen-le/lunchux#readme",
+  "dependencies": {
+    "cfenv": "^1.0.3",
+    "hapi": "^11.1.4",
+    "inert": "^3.2.0"
+  }
+}
