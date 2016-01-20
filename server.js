@@ -1,6 +1,13 @@
+'use strict';
+
 const Hapi = require('hapi');
 const cfenv = require('cfenv'); // see: https://www.npmjs.com/package/cfenv
 const Inert = require('inert');
+
+const cpsConn = require('./lib/database/connection');
+const db_connection = require('./lib/database/db_connection')(cpsConn);
+const loginRoutes = require('./lib/routes/login')(db_connection);
+const userRoutes = require('./lib/routes/user')(db_connection);
 
 var appEnv = cfenv.getAppEnv();
 var server = new Hapi.Server();
@@ -11,6 +18,7 @@ server.connection({
 
 server.register(Inert, function(err) { if (err) throw err;});
 
+// static files
 server.route({
   method: 'GET',
   path: '/',
@@ -25,10 +33,10 @@ server.route({
     file: './public/bundle.js'
   }
 });
-
-server.route(require('./lib/routes/login'));
+server.route(loginRoutes);
+server.route(userRoutes);
 
 server.start(function(err) {
   if (err) throw err;
-  console.log("server starting on " + appEnv.url);
+  console.log('server starting on ' + appEnv.url);
 });

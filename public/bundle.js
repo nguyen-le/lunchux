@@ -25992,7 +25992,7 @@
 	
 	    event.preventDefault();
 	    var xhr = new XMLHttpRequest();
-	    xhr.open('POST', '/login');
+	    xhr.open('POST', '/sign_up');
 	    xhr.setRequestHeader('Content-Type', 'application/json');
 	    xhr.onreadystatechange = function () {
 	      if (xhr.readyState === XMLHttpRequest.DONE) {
