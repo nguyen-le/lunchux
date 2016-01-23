@@ -35,13 +35,6 @@ server.route({
 });
 server.route(loginRoutes);
 server.route(userRoutes);
-server.route({
-  method: 'GET',
-  path: '/fail',
-  handler: function(request, reply) {
-    reply('ok');
-  }
-});
 
 server.start(function(err) {
   if (err) throw err;

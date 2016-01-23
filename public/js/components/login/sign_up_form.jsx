@@ -20,7 +20,7 @@ const SignUpForm = React.createClass({
   _onSubmit: function(event) {
     event.preventDefault();
     let xhr = new XMLHttpRequest();
-    xhr.open('POST', '/sign_up');
+    xhr.open('POST', '/user');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
