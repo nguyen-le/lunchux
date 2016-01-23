@@ -66,11 +66,11 @@
 	
 	var _landing_page2 = _interopRequireDefault(_landing_page);
 	
-	var _sign_up_page = __webpack_require__(237);
+	var _sign_up_page = __webpack_require__(236);
 	
 	var _sign_up_page2 = _interopRequireDefault(_sign_up_page);
 	
-	var _reducers = __webpack_require__(239);
+	var _reducers = __webpack_require__(238);
 	
 	var _reducers2 = _interopRequireDefault(_reducers);
 	
@@ -25541,7 +25541,7 @@
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _actions = __webpack_require__(232);
+	var _actions = __webpack_require__(231);
 	
 	var _actions2 = _interopRequireDefault(_actions);
 	
@@ -25642,16 +25642,20 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _login_mixins = __webpack_require__(231);
-	
-	var _login_mixins2 = _interopRequireDefault(_login_mixins);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var LoginForm = _react2.default.createClass({
 	  displayName: 'LoginForm',
 	
-	  mixins: [_login_mixins2.default],
+	  getInitialState: function getInitialState() {
+	    return { email: '', password: '' };
+	  },
+	  _onChangeEmail: function _onChangeEmail(event) {
+	    this.setState({ email: event.target.value });
+	  },
+	  _onChangePw: function _onChangePw(event) {
+	    this.setState({ password: event.target.value });
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'form',
@@ -25680,14 +25684,19 @@
 	    var _this = this;
 	
 	    event.preventDefault();
+	
+	    console.log(JSON.stringify(this.state));
 	    var xhr = new XMLHttpRequest();
-	    xhr.open('GET', '/loginget');
+	    xhr.open('POST', '/login');
+	    xhr.setRequestHeader('Content-Type', 'application/json');
 	    xhr.onreadystatechange = function () {
 	      if (xhr.status === 200 && xhr.readyState === XMLHttpRequest.DONE) {
 	        _this.props.loginAction();
+	      } else {
+	        // signal error messaging
 	      }
 	    };
-	    xhr.send();
+	    xhr.send(JSON.stringify(this.state));
 	  }
 	});
 	
@@ -25695,29 +25704,6 @@
 
 /***/ },
 /* 231 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var LoginMixins = {
-	  getInitialState: function getInitialState() {
-	    return { email: '', password: '' };
-	  },
-	  _onChangeEmail: function _onChangeEmail(event) {
-	    this.setState({ email: event.target.value });
-	  },
-	  _onChangePw: function _onChangePw(event) {
-	    this.setState({ password: event.target.value });
-	  }
-	};
-	
-	exports.default = LoginMixins;
-
-/***/ },
-/* 232 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25726,11 +25712,11 @@
 	  value: true
 	});
 	
-	var _objectAssign = __webpack_require__(233);
+	var _objectAssign = __webpack_require__(232);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _login = __webpack_require__(234);
+	var _login = __webpack_require__(233);
 	
 	var _login2 = _interopRequireDefault(_login);
 	
@@ -25740,7 +25726,7 @@
 	exports.default = Actions;
 
 /***/ },
-/* 233 */
+/* 232 */
 /***/ function(module, exports) {
 
 	/* eslint-disable no-unused-vars */
@@ -25785,7 +25771,7 @@
 
 
 /***/ },
-/* 234 */
+/* 233 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25794,7 +25780,7 @@
 	  value: true
 	});
 	
-	var _action_types = __webpack_require__(235);
+	var _action_types = __webpack_require__(234);
 	
 	var _action_types2 = _interopRequireDefault(_action_types);
 	
@@ -25814,7 +25800,7 @@
 	exports.default = LoginActions;
 
 /***/ },
-/* 235 */
+/* 234 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25823,7 +25809,7 @@
 	  value: true
 	});
 	
-	var _keymirror = __webpack_require__(236);
+	var _keymirror = __webpack_require__(235);
 	
 	var _keymirror2 = _interopRequireDefault(_keymirror);
 	
@@ -25836,7 +25822,7 @@
 	exports.default = action_types;
 
 /***/ },
-/* 236 */
+/* 235 */
 /***/ function(module, exports) {
 
 	/**
@@ -25895,7 +25881,7 @@
 
 
 /***/ },
-/* 237 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25912,11 +25898,11 @@
 	
 	var _reactRedux = __webpack_require__(187);
 	
-	var _sign_up_form = __webpack_require__(238);
+	var _sign_up_form = __webpack_require__(237);
 	
 	var _sign_up_form2 = _interopRequireDefault(_sign_up_form);
 	
-	var _login = __webpack_require__(234);
+	var _login = __webpack_require__(233);
 	
 	var _login2 = _interopRequireDefault(_login);
 	
@@ -25940,7 +25926,7 @@
 	exports.default = ConnectedSignUpPage;
 
 /***/ },
-/* 238 */
+/* 237 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -25953,16 +25939,20 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _login_mixins = __webpack_require__(231);
-	
-	var _login_mixins2 = _interopRequireDefault(_login_mixins);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var SignUpForm = _react2.default.createClass({
 	  displayName: 'SignUpForm',
 	
-	  mixins: [_login_mixins2.default],
+	  getInitialState: function getInitialState() {
+	    return { email: '', password: '' };
+	  },
+	  _onChangeEmail: function _onChangeEmail(event) {
+	    this.setState({ email: event.target.value });
+	  },
+	  _onChangePw: function _onChangePw(event) {
+	    this.setState({ password: event.target.value });
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'form',
@@ -25991,6 +25981,7 @@
 	    var _this = this;
 	
 	    event.preventDefault();
+	
 	    var xhr = new XMLHttpRequest();
 	    xhr.open('POST', '/user');
 	    xhr.setRequestHeader('Content-Type', 'application/json');
@@ -26000,8 +25991,7 @@
 	          //this.props.signUpAction();
 	          _this.props.actions.login();
 	        } else {
-	          console.log('login Failed');
-	          console.log(_this.state);
+	          // signal error messaging
 	        }
 	      }
 	    };
@@ -26012,7 +26002,7 @@
 	exports.default = SignUpForm;
 
 /***/ },
-/* 239 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

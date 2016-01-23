@@ -1,10 +1,16 @@
 import React from 'react';
 
-import LoginMixins from '../mixins/login_mixins';
-
 
 const SignUpForm = React.createClass({
-  mixins: [LoginMixins],
+  getInitialState: function() {
+    return {email: '', password: ''};
+  },
+  _onChangeEmail: function(event) {
+    this.setState({email: event.target.value});
+  },
+  _onChangePw: function(event) {
+    this.setState({password: event.target.value});
+  },
   render: function() {
     return (
       <form onSubmit={this._onSubmit}>
@@ -19,6 +25,7 @@ const SignUpForm = React.createClass({
   },
   _onSubmit: function(event) {
     event.preventDefault();
+
     let xhr = new XMLHttpRequest();
     xhr.open('POST', '/user');
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -28,8 +35,7 @@ const SignUpForm = React.createClass({
           //this.props.signUpAction();
           this.props.actions.login();
         } else {
-          console.log('login Failed');
-          console.log(this.state);
+          // signal error messaging
         }
       }
     };

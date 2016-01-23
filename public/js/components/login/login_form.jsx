@@ -1,9 +1,16 @@
 import React from 'react';
 
-import LoginMixins from '../mixins/login_mixins';
 
 const LoginForm = React.createClass({
-  mixins: [LoginMixins],
+  getInitialState: function() {
+    return {email: '', password: ''};
+  },
+  _onChangeEmail: function(event) {
+    this.setState({email: event.target.value});
+  },
+  _onChangePw: function(event) {
+    this.setState({password: event.target.value});
+  },
   render: function() {
     return (
       <form onSubmit={this._onSubmit}>
@@ -18,14 +25,18 @@ const LoginForm = React.createClass({
   },
   _onSubmit: function(event) {
     event.preventDefault();
+
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', '/loginget');
+    xhr.open('POST', '/login');
+    xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = () => {
       if (xhr.status === 200 && xhr.readyState === XMLHttpRequest.DONE) {
         this.props.loginAction();
+      } else {
+        // signal error messaging
       }
     };
-    xhr.send();
+    xhr.send(JSON.stringify(this.state));
   }
 });
 
