@@ -4,10 +4,8 @@ const Hapi = require('hapi');
 const cfenv = require('cfenv'); // see: https://www.npmjs.com/package/cfenv
 const Inert = require('inert');
 
-const cpsConn = require('./lib/database/connection');
-const db_access = require('./lib/database/db_access')(cpsConn);
-const loginRoutes = require('./lib/routes/login')(db_access);
-const userRoutes = require('./lib/routes/user')(db_access);
+const loginRoutes = require('./lib/routes/login');
+const userRoutes = require('./lib/routes/user');
 
 var appEnv = cfenv.getAppEnv();
 var server = new Hapi.Server();
