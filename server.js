@@ -5,16 +5,14 @@ const Hapi = require('hapi');
 const HapiAuthCookie = require('hapi-auth-cookie');
 const Inert = require('inert');
 
-const loginRoutes = require('./lib/routes/login');
-const userRoutes = require('./lib/routes/user');
-const publicController = require('./lib/routes/public');
+const Login = require('./lib/controllers/Login');
+const User = require('./lib/controllers/User');
+
 
 var appEnv = cfenv.getAppEnv();
 var server = new Hapi.Server();
 
-
 server.connection({ port: (appEnv.port || 8080) });
-
 server.register(Inert, (err) => { if (err) throw err; });
 server.register(HapiAuthCookie, (err) => {
   if (err) throw err;
@@ -26,13 +24,14 @@ server.register(HapiAuthCookie, (err) => {
 });
 
 // static files
-server.route(
-  { method: 'GET', path: '/', config: publicController.indexHtml },
-  { method: 'GET', path: '/public/bundle.js', config: publicController.bundleJs }
-);
+server.route([
+  {method: 'GET', path: '/', handler: {file: './public/index.html'}},
+  {method: 'GET', path: '/public/bundle.js', handler: {file: './public/bundle.js'}},
 
-server.route(loginRoutes);
-server.route(userRoutes);
+  {method: 'POST', path: '/login', config: Login.post},
+
+  {method: 'POST', path: '/user', config: User.post}
+]);
 
 server.start(function(err) {
   if (err) throw err;
