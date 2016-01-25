@@ -1,7 +1,7 @@
-import React from 'react';
 //import Divider from 'material-ui/lib/divider';
 import Color from 'material-ui/lib/styles/colors';
 import RaisedButton from 'material-ui/lib/raised-button';
+import React from 'react';
 import TextField from 'material-ui/lib/text-field';
 
 
@@ -14,30 +14,28 @@ const LoginForm = React.createClass({
     const passwordError = this.state.errors.get('password');
 
     return (
-      <div>
-        <form onSubmit={this._onSubmit}>
-          <TextField
-            onChange={this._onChangeEmail}
-            type='text'
-            floatingLabelStyle={ emailError ? {color: Color.red500} : null}
-            floatingLabelText='Email'
-            errorText={ emailError ? 'made mistake' : null }
-            autoFocus={true}/>
-          <br />
-          <TextField
-            onChange={this._onChangePassword}
-            type='password'
-            floatingLabelStyle={ passwordError ? {color: Color.red500} : null }
-            floatingLabelText='Password'
-            errorText={ passwordError ? passwordError : null }
-          />
-          <br />
-          <RaisedButton
-            onClick={this._onSubmit}
-            label='Log In'
-            backgroundColor={Color.red100}/>
-        </form>
-      </div>
+      <form onSubmit={this._onSubmit}>
+        <TextField
+          type='text'
+          value={this.state.email}
+          autoFocus={true}
+          errorText={emailError ? 'made mistake' : null}
+          floatingLabelStyle={emailError ? {color: Color.red500} : null}
+          floatingLabelText='Email'
+          onChange={this._onChangeEmail} />
+        <br />
+        <TextField
+          type='password'
+          value={this.state.password}
+          errorText={passwordError ? passwordError : null}
+          floatingLabelStyle={passwordError ? {color: Color.red500} : null}
+          floatingLabelText='Password'
+          onChange={this._onChangePassword} />
+        <br />
+        <RaisedButton
+          label='Log In'
+          onClick={this._onSubmit} />
+      </form>
     );
   },
   _onChangeEmail: function(event) {

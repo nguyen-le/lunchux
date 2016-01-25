@@ -1,32 +1,54 @@
+import Color from 'material-ui/lib/styles/colors';
+import RaisedButton from 'material-ui/lib/raised-button';
 import React from 'react';
+import TextField from 'material-ui/lib/text-field';
 
 
 const SignUpForm = React.createClass({
   getInitialState: function() {
-    return {email: '', password: ''};
+    return {email: '', password: '', errors: new Map};
+  },
+  render: function() {
+    const emailError = false;
+    const passwordError = false;
+    return (
+      <form onSubmit={this._onSubmit}>
+        <TextField
+          type='text'
+          value={this.state.email}
+          errorText={emailError ? 'mistake' : null}
+          floatingLabelStyle={emailError ? {color: Color.red500} : null}
+          floatingLabelText='Email'
+          onChange={this._onChangeEmail} />
+        <br/>
+        <TextField
+          type='password'
+          value={this.state.password}
+          errorText={passwordError ? 'mistake' : null}
+          floatingLabelStyle={passwordError ? {color: Color.red500} : null}
+          floatingLabelText='Password'
+          onChange={this._onChangePassword} />
+        <br/>
+        <RaisedButton
+          label='Log In'
+          onClick={this._onSubmit} />
+      </form>
+    );
   },
   _onChangeEmail: function(event) {
     this.setState({email: event.target.value});
   },
-  _onChangePw: function(event) {
+  _onChangePassword: function(event) {
     this.setState({password: event.target.value});
-  },
-  render: function() {
-    return (
-      <form onSubmit={this._onSubmit}>
-        <p>Sign up form</p>
-        <label htmlFor='login-email'>Email Address</label>
-        <input id='login-email' type='text' value={this.state.email} onChange={this._onChangeEmail}/>
-        <label htmlFor='login-pw'>Password</label>
-        <input id='login-pw' type='password' value={this.state.password} onChange={this._onChangePw}/>
-        <input type='submit' />
-      </form>
-    );
   },
   _onSubmit: function(event) {
     event.preventDefault();
 
-    let xhr = new XMLHttpRequest();
+    const payload = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    const xhr = new XMLHttpRequest();
     xhr.open('POST', '/user');
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = () => {
@@ -39,7 +61,7 @@ const SignUpForm = React.createClass({
         }
       }
     };
-    xhr.send(JSON.stringify(this.state));
+    xhr.send(JSON.stringify(payload));
   }
 });
 

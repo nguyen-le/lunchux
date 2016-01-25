@@ -1,10 +1,10 @@
 import ActionTypes from '../constants/action_types';
 
 
-function login(user_data) {
+function login(user) {
   return {
     type: ActionTypes.LOG_IN,
-    user_data: user_data
+    user: user
   };
 }
 
