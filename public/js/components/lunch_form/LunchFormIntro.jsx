@@ -1,12 +1,19 @@
 import Color from 'material-ui/lib/styles/colors';
+import MenuItem from 'material-ui/lib/menus/menu-item';
 import RaisedButton from 'material-ui/lib/raised-button';
 import React from 'react';
+import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
 
 const LunchFormIntro = React.createClass({
   getInitialState: function() {
-    return {email: '', password: '', errors: new Map};
+    return {
+      email: '',
+      errors: new Map,
+      language: 1,
+      password: ''
+    };
   },
   render: function() {
     const emailError = this.state.errors.get('email');
@@ -15,6 +22,10 @@ const LunchFormIntro = React.createClass({
     return (
       <div>
         <h1> Lunch Form Intro </h1>
+        <SelectField value={this.state.language} onChange={this._onChangeLanguage}>
+          <MenuItem value={1} primaryText='English' />
+          <MenuItem value={2} primaryText='Español' />
+        </SelectField>
         <TextField
           type='text'
           value={this.state.email}
@@ -38,6 +49,9 @@ const LunchFormIntro = React.createClass({
   },
   _onChangeEmail: function(event) {
     this.setState({email: event.target.value});
+  },
+  _onChangeLanguage: function(event, index, value) {
+    this.setState({language: value});
   },
   _onChangePassword: function(event) {
     this.setState({password: event.target.value});

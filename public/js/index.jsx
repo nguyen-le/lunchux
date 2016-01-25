@@ -10,6 +10,9 @@ import LunchFormPage from './containers/LunchFormPage';
 import SignUpPage from './containers/SignUpPage';
 import reducers from './reducers/reducers';
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
+injectTapEventPlugin();
 let store = createStore(reducers);
 
 ReactDOM.render(
