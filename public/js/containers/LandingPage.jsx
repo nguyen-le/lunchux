@@ -8,6 +8,7 @@ import { Link } from 'react-router';
 import LoginForm from '../components/LoginForm';
 import LoginActions from '../actions/login';
 
+
 const LandingPage = React.createClass({
   render: function() {
     //const lunch_form_data = this.props.lunch_form_data;
@@ -16,7 +17,7 @@ const LandingPage = React.createClass({
       <div>
         <h1>Continue or Start a new application</h1>
         <LoginForm loginAction={actions.login} history={this.props.history}/>
-        <Link to={'/sign_up'}>
+        <Link to={'/lunch_form'}>
           <RaisedButton
             label='Start new application'
             labelStyle={{color: 'white'}}
