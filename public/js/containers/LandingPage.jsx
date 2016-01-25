@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Login from '../components/login';
-import Actions from '../actions/actions';
+import LoginActions from '../actions/login';
 
 const LandingPage = React.createClass({
   render: function() {
@@ -20,14 +20,13 @@ const LandingPage = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    logged_in: state.logged_in,
-    lunch_form_data: state.lunch_form_data
+    user: state.user
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(Actions, dispatch)
+    actions: bindActionCreators(LoginActions, dispatch)
   };
 }
 const ConnectedLandingPage = connect(mapStateToProps, mapDispatchToProps)(LandingPage);

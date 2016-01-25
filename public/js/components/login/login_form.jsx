@@ -56,7 +56,8 @@ const LoginForm = React.createClass({
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = () => {
       if (xhr.status === 200 && xhr.readyState === XMLHttpRequest.DONE) {
-        this.props.loginAction();
+        const user = JSON.parse(xhr.response).data;
+        this.props.loginAction(user);
       } else {
         // signal error messaging
       }

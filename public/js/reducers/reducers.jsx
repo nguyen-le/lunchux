@@ -1,13 +1,13 @@
-var Redux = require('redux');
+const Immutable = require('immutable');
+const Redux = require('redux');
 
 
-function loginReducer(state, action) {
-  state = state || false;
+const map = Immutable.Map();
+function loginReducer(state=map, action) {
   switch (action.type) {
   case 'LOG_IN':
-    //TODO
-    console.log('loginFormReducer');
-    return state;
+    console.log('loginReducer');
+    return state.set('user', action.user);
 
   default:
     return state;
@@ -29,8 +29,8 @@ function lunchFormReducer(state, action) {
   }
 }
 
-var finalReducer = Redux.combineReducers({
-  logged_in: loginReducer,
+const finalReducer = Redux.combineReducers({
+  user: loginReducer,
   lunch_form_data: lunchFormReducer
 });
 
