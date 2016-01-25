@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import SignUpForm from '../components/login/sign_up_form';
+import SignUpForm from '../components/SignUpForm';
 import LoginActions from '../actions/login';
 
 

@@ -34,6 +34,7 @@ const LoginForm = React.createClass({
         <br />
         <RaisedButton
           label='Log In'
+          secondary={true}
           onClick={this._onSubmit} />
       </form>
     );

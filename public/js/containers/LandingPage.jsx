@@ -1,8 +1,11 @@
+import Color from 'material-ui/lib/styles/colors';
+import RaisedButton from 'material-ui/lib/raised-button';
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
-import Login from '../components/login';
+import LoginForm from '../components/LoginForm';
 import LoginActions from '../actions/login';
 
 const LandingPage = React.createClass({
@@ -11,8 +14,14 @@ const LandingPage = React.createClass({
     const actions = this.props.actions;
     return (
       <div>
-        <p>LandingPage</p>
-        <Login loginAction={actions.login} history={this.props.history}/>
+        <h1>Continue or Start a new application</h1>
+        <LoginForm loginAction={actions.login} history={this.props.history}/>
+        <Link to={'/sign_up'}>
+          <RaisedButton
+            label='Start new application'
+            labelStyle={{color: 'white'}}
+            backgroundColor={Color.green500} />
+        </Link>
       </div>
     );
   }

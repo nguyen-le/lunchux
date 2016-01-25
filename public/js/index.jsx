@@ -6,7 +6,7 @@ import { Router, Route } from 'react-router';
 import { createStore } from 'redux';
 
 import LandingPage from './containers/LandingPage';
-import SignUpPage from './containers/sign_up_page';
+import SignUpPage from './containers/SignUpPage';
 import reducers from './reducers/reducers';
 
 let store = createStore(reducers);
