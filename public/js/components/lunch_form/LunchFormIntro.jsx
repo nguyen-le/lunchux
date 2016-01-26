@@ -22,7 +22,8 @@ const LunchFormIntro = React.createClass({
     return (
       <div>
         <h1> Lunch Form Intro </h1>
-        <SelectField value={this.state.language} onChange={this._onChangeLanguage}>
+        <p>Language</p>
+        <SelectField floatingLabelText='Language' value={this.state.language} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
