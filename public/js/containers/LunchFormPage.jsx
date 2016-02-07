@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 //import { Link } from 'react-router';
 
-import Actions from '../actions/login';
+import Actions from '../actions/actions';
 import LunchFormIntro from '../components/lunch_form/LunchFormIntro';
 
 

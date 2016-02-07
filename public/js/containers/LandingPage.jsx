@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import LoginForm from '../components/LoginForm';
-import LoginActions from '../actions/login';
+import login_actions from '../actions/login_actions';
 
 
 const LandingPage = React.createClass({
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(LoginActions, dispatch)
+    actions: bindActionCreators(login_actions, dispatch)
   };
 }
 const ConnectedLandingPage = connect(mapStateToProps, mapDispatchToProps)(LandingPage);

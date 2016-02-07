@@ -11,7 +11,7 @@ const LunchFormIntro = React.createClass({
     return {
       email: '',
       errors: new Map,
-      language: 1,
+      language: {key: 1, language: 'English'},
       password: ''
     };
   },
@@ -23,7 +23,7 @@ const LunchFormIntro = React.createClass({
       <div>
         <h1> Lunch Form Intro </h1>
         <p>Language</p>
-        <SelectField floatingLabelText='Language' value={this.state.language} onChange={this._onChangeLanguage}>
+        <SelectField floatingLabelText='Language' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
@@ -52,7 +52,7 @@ const LunchFormIntro = React.createClass({
     this.setState({email: event.target.value});
   },
   _onChangeLanguage: function(event, index, value) {
-    this.setState({language: value});
+    this.setState({language: {key: value, language: event.target.innerText}});
   },
   _onChangePassword: function(event) {
     this.setState({password: event.target.value});

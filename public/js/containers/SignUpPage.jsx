@@ -2,8 +2,8 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import login_actions from '../actions/login_actions';
 import SignUpForm from '../components/SignUpForm';
-import LoginActions from '../actions/login';
 
 
 function mapStateToProps(state) {
@@ -15,7 +15,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(LoginActions, dispatch)
+    actions: bindActionCreators(login_actions, dispatch)
   };
 }
 
