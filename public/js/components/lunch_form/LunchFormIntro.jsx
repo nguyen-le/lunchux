@@ -5,42 +5,65 @@ import React from 'react';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
+import Translate from '../../translate';
+
 
 const LunchFormIntro = React.createClass({
   getInitialState: function() {
     return {
       email: '',
       errors: new Map,
-      language: {key: 1, language: 'English'},
-      password: ''
+      language: {key: 1, name: 'English'},
+      password: '',
+      phone: ''
     };
   },
   render: function() {
     const emailError = this.state.errors.get('email');
-    const passwordError = this.state.errors.get('password');
+    const firstNameError = this.state.errors.get('first_name');
+    const lastNameError = this.state.errors.get('first_name');
+    const phoneError = this.state.errors.get('phone');
 
     return (
       <div>
         <h1> Lunch Form Intro </h1>
-        <p>Language</p>
+        <span>Preferred language:</span>
         <SelectField floatingLabelText='Language' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
+        <div>
+          <TextField
+            type='text'
+            value={this.state.first_name}
+            errorText={firstNameError ? 'made mistake' : null}
+            floatingLabelStyle={emailError ? {color: Color.red500} : null}
+            floatingLabelText={Translate.get('first_name')}
+            onChange={this._onChangeFirstName} />
+          <TextField
+            type='text'
+            value={this.state.last_name}
+            errorText={lastNameError ? 'made mistake' : null}
+            floatingLabelStyle={emailError ? {color: Color.red500} : null}
+            floatingLabelText={Translate.get('last_name')}
+            onChange={this._onChangeLastName} />
+        </div>
         <TextField
+          style={{display: 'block'}}
+          type='text'
+          value={this.state.phone}
+          errorText={phoneError ? 'made mistake' : null}
+          floatingLabelStyle={phoneError ? {color: Color.red500} : null}
+          floatingLabelText={Translate.get('phone')}
+          onChange={this._onChangePhone} />
+        <TextField
+          style={{display: 'block'}}
           type='text'
           value={this.state.email}
           errorText={emailError ? 'made mistake' : null}
           floatingLabelStyle={emailError ? {color: Color.red500} : null}
-          floatingLabelText='Email'
+          floatingLabelText={Translate.get('email')}
           onChange={this._onChangeEmail} />
-        <TextField
-          type='password'
-          value={this.state.password}
-          errorText={passwordError ? passwordError : null}
-          floatingLabelStyle={passwordError ? {color: Color.red500} : null}
-          floatingLabelText='Password'
-          onChange={this._onChangePassword} />
         <RaisedButton
           label='continue'
           secondary={true}
@@ -51,11 +74,18 @@ const LunchFormIntro = React.createClass({
   _onChangeEmail: function(event) {
     this.setState({email: event.target.value});
   },
-  _onChangeLanguage: function(event, index, value) {
-    this.setState({language: {key: value, language: event.target.innerText}});
+  _onChangeFirstName: function(event) {
+    this.setState({first_name: event.target.value});
   },
-  _onChangePassword: function(event) {
-    this.setState({password: event.target.value});
+  _onChangeLastName: function(event) {
+    this.setState({last_name: event.target.value});
+  },
+  _onChangeLanguage: function(event, index, value) {
+    this.setState({language: {key: value, name: event.target.innerText}});
+    Translate.useLanguage(event.target.innerText);
+  },
+  _onChangePhone: function(event) {
+    this.setState({phone: event.target.value});
   },
   _onSubmit: function(event) {
     return;
