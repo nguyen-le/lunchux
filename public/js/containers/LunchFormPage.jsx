@@ -12,7 +12,7 @@ const LunchFormPage = React.createClass({
     return (
       <div>
         <h1> Lunch Form Page </h1>
-        <LunchFormIntro />
+        <LunchFormIntro changeLanguage={this.props.actions.changeLanguage}/>
       </div>
     );
   }
@@ -20,7 +20,8 @@ const LunchFormPage = React.createClass({
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    lunch_form_data: state.lunch_form_data
   };
 }
 

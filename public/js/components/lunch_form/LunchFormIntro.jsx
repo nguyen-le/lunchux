@@ -5,12 +5,14 @@ import React from 'react';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
+import Actions from '../../actions/actions';
 import Translate from '../../translate';
 
 
 const LunchFormIntro = React.createClass({
   getInitialState: function() {
     return {
+      phone_element_active: false,
       email: '',
       errors: new Map,
       language: {key: 1, name: 'English'},
@@ -50,11 +52,15 @@ const LunchFormIntro = React.createClass({
         </div>
         <TextField
           style={{display: 'block'}}
+          id='page-one-phone'
           type='text'
           value={this.state.phone}
-          errorText={phoneError ? 'made mistake' : null}
+          placeholder={this.state.phone_element_active ? 'ex: 555-555-5555' : null}
+          errorText={phoneError ? Translate.get('phone_error') : null}
           floatingLabelStyle={phoneError ? {color: Color.red500} : null}
           floatingLabelText={Translate.get('phone')}
+          onFocus={(() => {this.setState({phone_element_active: true});}).bind(this)}
+          onBlur={(() => {this.setState({phone_element_active: false});}).bind(this)}
           onChange={this._onChangePhone} />
         <TextField
           style={{display: 'block'}}
@@ -81,32 +87,39 @@ const LunchFormIntro = React.createClass({
     this.setState({last_name: event.target.value});
   },
   _onChangeLanguage: function(event, index, value) {
+    const selected_language = event.target.innerText;
     this.setState({language: {key: value, name: event.target.innerText}});
     Translate.useLanguage(event.target.innerText);
+    this.props.changeLanguage(event.target.innerText);
   },
   _onChangePhone: function(event) {
     this.setState({phone: event.target.value});
   },
   _onSubmit: function(event) {
-    return;
-    event.preventDefault();
+    if (this._allFieldsAreValid()) {
+      event.preventDefault();
 
-    const payload = {
-      email: this.state.email,
-      password: this.state.password
-    };
-    const xhr = new XMLHttpRequest();
-    xhr.open('POST', '/login');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = () => {
-      if (xhr.status === 200 && xhr.readyState === XMLHttpRequest.DONE) {
-        const user = JSON.parse(xhr.response).data;
-        this.props.loginAction(user);
-      } else {
-        // signal error messaging
-      }
-    };
-    xhr.send(JSON.stringify(payload));
+      const payload = {
+        email: this.state.email,
+        password: this.state.password
+      };
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', '/login');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = () => {
+        if (xhr.status === 200 && xhr.readyState === XMLHttpRequest.DONE) {
+          const user = JSON.parse(xhr.response).data;
+          this.props.loginAction(user);
+        } else {
+          // signal error messaging
+        }
+      };
+      xhr.send(JSON.stringify(payload));
+    }
+  },
+  _allFieldsAreValid: function() {
+    const fields_to_validate = ['first_name', 'last_name', 'phone', 'email'];
+    return false;
   }
 });
 

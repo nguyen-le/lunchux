@@ -25,6 +25,10 @@ class Translate {
         'en': 'Phone',
         'es': 'Teléfono'
       },
+      'phone_error': {
+        'en': '555-555-5555',
+        'es': '555-555-5555'
+      },
       'step_one_header': {
         'en': 'List ALL Household Members who are infants, children, and students up to and including grade 12',
         'es': 'Haga una lista de todos los bebés, niños y estudiantes hasta el grado 12 miembros de su hogar'
