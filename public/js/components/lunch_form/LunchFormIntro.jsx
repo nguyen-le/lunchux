@@ -30,7 +30,7 @@ const LunchFormIntro = React.createClass({
       <div>
         <h1> Lunch Form Intro </h1>
         <span>Preferred language:</span>
-        <SelectField floatingLabelText='Language' value={this.state.language.key} onChange={this._onChangeLanguage}>
+        <SelectField floatingLabelText='' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
@@ -88,21 +88,23 @@ const LunchFormIntro = React.createClass({
   },
   _onChangeLanguage: function(event, index, value) {
     const selected_language = event.target.innerText;
-    this.setState({language: {key: value, name: event.target.innerText}});
-    Translate.useLanguage(event.target.innerText);
-    this.props.changeLanguage(event.target.innerText);
+    this.setState({language: {key: value, name: selected_language}});
+    Translate.useLanguage(selected_language);
+    this.props.changeLanguage(selected_language);
   },
   _onChangePhone: function(event) {
     this.setState({phone: event.target.value});
   },
   _onSubmit: function(event) {
-    if (this._allFieldsAreValid()) {
+    const errors = this._checkForErrors();
+    if (errors.length === 0) {
       event.preventDefault();
 
       const payload = {
         email: this.state.email,
         password: this.state.password
       };
+      /*
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/login');
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -115,11 +117,22 @@ const LunchFormIntro = React.createClass({
         }
       };
       xhr.send(JSON.stringify(payload));
+      */
+    } else {
+
     }
   },
-  _allFieldsAreValid: function() {
-    const fields_to_validate = ['first_name', 'last_name', 'phone', 'email'];
-    return false;
+  _checkForErrors: function() {
+    let errors = [];
+
+    ['first_name', 'last_name'].forEach((field) => {
+      if (this.state[field].length > 0) {
+        errors.push(field);
+      }
+    });
+
+
+    return ['a'];
   }
 });
 
