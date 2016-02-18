@@ -5,8 +5,8 @@ const Hapi = require('hapi');
 const HapiAuthCookie = require('hapi-auth-cookie');
 const Inert = require('inert');
 
-const Login = require('./lib/controllers/Login');
-const User = require('./lib/controllers/User');
+//const Login = require('./lib/controllers/Login');
+//const User = require('./lib/controllers/User');
 
 
 var appEnv = cfenv.getAppEnv();
@@ -26,11 +26,11 @@ server.register(HapiAuthCookie, (err) => {
 // static files
 server.route([
   {method: 'GET', path: '/', handler: {file: './public/index.html'}},
-  {method: 'GET', path: '/public/bundle.js', handler: {file: './public/bundle.js'}},
+  {method: 'GET', path: '/public/bundle.js', handler: {file: './public/bundle.js'}}
 
-  {method: 'POST', path: '/login', config: Login.post},
+  //{method: 'POST', path: '/login', config: Login.post},
 
-  {method: 'POST', path: '/user', config: User.post}
+  //{method: 'POST', path: '/user', config: User.post}
 ]);
 
 server.start(function(err) {

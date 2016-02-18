@@ -6,7 +6,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import LoginForm from '../components/LoginForm';
-import LoginActions from '../actions/login';
+import login_actions from '../actions/login_actions';
+
 
 const LandingPage = React.createClass({
   render: function() {
@@ -16,7 +17,7 @@ const LandingPage = React.createClass({
       <div>
         <h1>Continue or Start a new application</h1>
         <LoginForm loginAction={actions.login} history={this.props.history}/>
-        <Link to={'/sign_up'}>
+        <Link to={'/lunch_form'}>
           <RaisedButton
             label='Start new application'
             labelStyle={{color: 'white'}}
@@ -35,7 +36,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(LoginActions, dispatch)
+    actions: bindActionCreators(login_actions, dispatch)
   };
 }
 const ConnectedLandingPage = connect(mapStateToProps, mapDispatchToProps)(LandingPage);

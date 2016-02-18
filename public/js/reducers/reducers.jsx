@@ -1,8 +1,12 @@
-const Immutable = require('immutable');
-const Redux = require('redux');
+import Immutable from 'immutable';
+import { combineReducers } from 'redux';
+
+import action_types from '../constants/action_types';
 
 
 const map = Immutable.Map();
+const lunch_form_map = Immutable.Map();
+
 function loginReducer(state=map, action) {
   switch (action.type) {
   case 'LOG_IN':
@@ -14,11 +18,10 @@ function loginReducer(state=map, action) {
   }
 }
 
-function lunchFormReducer(state, action) {
-  state = state || {};
+function lunchFormReducer(state=lunch_form_map, action) {
   switch (action.type) {
-  case 'DATA' :
-    console.log('lunchFormReducer');
+  case action_types.CHANGE_LANGUAGE:
+    console.log('changin lanugage');
     return state;
   case 'INPUT':
     //TODO
@@ -29,7 +32,7 @@ function lunchFormReducer(state, action) {
   }
 }
 
-const finalReducer = Redux.combineReducers({
+const finalReducer = combineReducers({
   user: loginReducer,
   lunch_form_data: lunchFormReducer
 });

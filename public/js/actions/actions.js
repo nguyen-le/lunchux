@@ -1,7 +1,8 @@
 import objectAssign from 'object-assign';
 
-import LoginActions from './login';
+import login_actions from './login_actions';
+import form_actions from './form_actions';
 
 
-const Actions = objectAssign({}, LoginActions);
+const Actions = objectAssign({}, login_actions, form_actions);
 export default Actions;
