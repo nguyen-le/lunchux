@@ -30,47 +30,61 @@ const LunchFormIntro = React.createClass({
       <div>
         <h1> Lunch Form Intro </h1>
         <span>Preferred language:</span>
-        <SelectField floatingLabelText='Language' value={this.state.language.key} onChange={this._onChangeLanguage}>
+        <SelectField floatingLabelText='' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
-        <div>
-          <TextField
-            type='text'
-            value={this.state.first_name}
-            errorText={firstNameError ? 'made mistake' : null}
-            floatingLabelStyle={emailError ? {color: Color.red500} : null}
-            floatingLabelText={Translate.get('first_name')}
-            onChange={this._onChangeFirstName} />
-          <TextField
-            type='text'
-            value={this.state.last_name}
-            errorText={lastNameError ? 'made mistake' : null}
-            floatingLabelStyle={emailError ? {color: Color.red500} : null}
-            floatingLabelText={Translate.get('last_name')}
-            onChange={this._onChangeLastName} />
-        </div>
         <TextField
-          style={{display: 'block'}}
-          id='page-one-phone'
+          style={{display: 'block', fontSize: '1.5em'}}
           type='text'
-          value={this.state.phone}
-          placeholder={this.state.phone_element_active ? 'ex: 555-555-5555' : null}
-          errorText={phoneError ? Translate.get('phone_error') : null}
-          floatingLabelStyle={phoneError ? {color: Color.red500} : null}
-          floatingLabelText={Translate.get('phone')}
-          onFocus={(() => {this.setState({phone_element_active: true});}).bind(this)}
-          onBlur={(() => {this.setState({phone_element_active: false});}).bind(this)}
-          onChange={this._onChangePhone} />
+          value={this.state.first_name}
+          errorText={firstNameError ? 'made mistake' : null}
+          floatingLabelStyle={
+            Object.assign(
+              {fontSize: '.75em'},
+              firstNameError ?  {color: Color.red500} : null)
+          }
+          floatingLabelText={Translate.get('first_name')}
+          onChange={this._onChangeFirstName} />
         <TextField
-          style={{display: 'block'}}
+          style={{display: 'block', fontSize: '1.5em'}}
+          type='text'
+          value={this.state.last_name}
+          errorText={lastNameError ? 'made mistake' : null}
+          floatingLabelStyle={
+            Object.assign(
+              {fontSize: '.75em'},
+              lastNameError ?  {color: Color.red500} : null)
+          }
+          floatingLabelText={Translate.get('last_name')}
+          onChange={this._onChangeLastName} />
+        <TextField
+          style={{display: 'block', fontSize: '1.5em'}}
           type='text'
           value={this.state.email}
           errorText={emailError ? 'made mistake' : null}
-          floatingLabelStyle={emailError ? {color: Color.red500} : null}
+          floatingLabelStyle={
+            Object.assign(
+              {fontSize: '.75em'},
+              emailError ?  {color: Color.red500} : null)
+          }
           floatingLabelText={Translate.get('email')}
           onChange={this._onChangeEmail} />
+        <TextField
+          style={{display: 'block', fontSize: '1.5em'}}
+          id='page-one-phone'
+          type='text'
+          value={this.state.phone}
+          errorText={phoneError ? Translate.get('phone_error') : null}
+          floatingLabelStyle={
+            Object.assign(
+              {fontSize: '.75em'},
+              phoneError ?  {color: Color.red500} : null)
+          }
+          floatingLabelText={Translate.get('phone')}
+          onChange={this._onChangePhone} />
         <RaisedButton
+          backgroundColor={Color.green500}
           label='continue'
           secondary={true}
           onClick={this._onSubmit} />
@@ -88,21 +102,23 @@ const LunchFormIntro = React.createClass({
   },
   _onChangeLanguage: function(event, index, value) {
     const selected_language = event.target.innerText;
-    this.setState({language: {key: value, name: event.target.innerText}});
-    Translate.useLanguage(event.target.innerText);
-    this.props.changeLanguage(event.target.innerText);
+    this.setState({language: {key: value, name: selected_language}});
+    Translate.useLanguage(selected_language);
+    this.props.changeLanguage(selected_language);
   },
   _onChangePhone: function(event) {
     this.setState({phone: event.target.value});
   },
   _onSubmit: function(event) {
-    if (this._allFieldsAreValid()) {
+    const errors = this._checkForErrors();
+    if (errors.length === 0) {
       event.preventDefault();
 
       const payload = {
         email: this.state.email,
         password: this.state.password
       };
+      /*
       const xhr = new XMLHttpRequest();
       xhr.open('POST', '/login');
       xhr.setRequestHeader('Content-Type', 'application/json');
@@ -115,11 +131,22 @@ const LunchFormIntro = React.createClass({
         }
       };
       xhr.send(JSON.stringify(payload));
+      */
+    } else {
+
     }
   },
-  _allFieldsAreValid: function() {
-    const fields_to_validate = ['first_name', 'last_name', 'phone', 'email'];
-    return false;
+  _checkForErrors: function() {
+    let errors = [];
+
+    ['first_name', 'last_name'].forEach((field) => {
+      if (this.state[field].length > 0) {
+        errors.push(field);
+      }
+    });
+
+
+    return ['a'];
   }
 });
 

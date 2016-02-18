@@ -10,7 +10,13 @@ import LunchFormIntro from '../components/lunch_form/LunchFormIntro';
 const LunchFormPage = React.createClass({
   render: function() {
     return (
-      <div>
+      <div style={{
+        backgroundColor: 'white',
+        width: '60%',
+        padding: '30px',
+        borderRadius: '5px',
+        marginRight: 'auto',
+        marginLeft: 'auto'}}>
         <h1> Lunch Form Page </h1>
         <LunchFormIntro changeLanguage={this.props.actions.changeLanguage}/>
       </div>
