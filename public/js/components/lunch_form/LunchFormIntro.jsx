@@ -4,6 +4,8 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import React from 'react';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
+import TextFieldLabel from 'material-ui/lib/TextField/TextFieldLabel';
+import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 
 import Actions from '../../actions/actions';
 import Translate from '../../translate';
@@ -28,12 +30,12 @@ const LunchFormIntro = React.createClass({
 
     return (
       <div>
-        <h1> Lunch Form Intro </h1>
         <span>Preferred language:</span>
         <SelectField floatingLabelText='' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
+        <p>{Translate.get('first_name')}</p>
         <TextField
           style={{display: 'block', fontSize: '1.5em'}}
           type='text'

@@ -1,3 +1,4 @@
+import AppBar from 'material-ui/lib/app-bar';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createHashHistory } from 'history';
