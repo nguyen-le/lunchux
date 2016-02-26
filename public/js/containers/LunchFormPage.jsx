@@ -7,12 +7,24 @@ import { connect } from 'react-redux';
 //import { Link } from 'react-router';
 
 import Actions from '../actions/actions';
+import LunchFormInfo from '../components/lunch_form/LunchFormInfo';
 import LunchFormIntro from '../components/lunch_form/LunchFormIntro';
 
 
 const LunchFormPage = React.createClass({
+  getInitialState: function() {
+    return {page: 0};
+  },
   render: function() {
-    //backgroundColor: 'white',
+    let page;
+    switch (this.state.page) {
+    case 0:
+      page = <LunchFormInfo nextPage={this.switchPage.bind(this, 1)}/>;
+      break;
+    case 1:
+      page = <LunchFormIntro changeLanguage={this.props.actions.changeLanguage}/>;
+      break;
+    }
     return (
       <div style={{
         width: '100%',
@@ -22,8 +34,9 @@ const LunchFormPage = React.createClass({
         className={'grad'}>
         <AppBar
           style={{
-            backgroundColor: '#000033'
+            backgroundColor: 'rgba(0,0,0,0)'
           }}
+          zDepth={0}
         />
         <Paper
           style={{
@@ -33,11 +46,12 @@ const LunchFormPage = React.createClass({
             marginRight: 'auto'
           }}
           zDepth={1}
-        >
-          <LunchFormIntro changeLanguage={this.props.actions.changeLanguage}/>
-        </Paper>
+        >{page}</Paper>
       </div>
     );
+  },
+  switchPage: function(num) {
+    this.setState({page: num});
   }
 });
 

@@ -14,7 +14,6 @@ import Translate from '../../translate';
 const LunchFormIntro = React.createClass({
   getInitialState: function() {
     return {
-      phone_element_active: false,
       email: '',
       errors: new Map,
       language: {key: 1, name: 'English'},
@@ -27,17 +26,19 @@ const LunchFormIntro = React.createClass({
     const firstNameError = this.state.errors.get('first_name');
     const lastNameError = this.state.errors.get('first_name');
     const phoneError = this.state.errors.get('phone');
-
-    return (
-      <div>
+    const languagePrompt = <div>
         <span>Preferred language:</span>
         <SelectField floatingLabelText='' value={this.state.language.key} onChange={this._onChangeLanguage}>
           <MenuItem value={1} primaryText='English' />
           <MenuItem value={2} primaryText='Español' />
         </SelectField>
-        <p>{Translate.get('first_name')}</p>
+      </div>;
+
+    return (
+      <div>
+        <p style={{fontSize: '2em', textAlign: 'center'}}
+        >Parent/Guardian Information</p>
         <TextField
-          style={{display: 'block', fontSize: '1.5em'}}
           type='text'
           value={this.state.first_name}
           errorText={firstNameError ? 'made mistake' : null}
@@ -47,9 +48,9 @@ const LunchFormIntro = React.createClass({
               firstNameError ?  {color: Color.red500} : null)
           }
           floatingLabelText={Translate.get('first_name')}
-          onChange={this._onChangeFirstName} />
+          onChange={this._onChangeFirstName}
+          style={{display: 'block', fontSize: '1.5em'}}/>
         <TextField
-          style={{display: 'block', fontSize: '1.5em'}}
           type='text'
           value={this.state.last_name}
           errorText={lastNameError ? 'made mistake' : null}
@@ -59,9 +60,9 @@ const LunchFormIntro = React.createClass({
               lastNameError ?  {color: Color.red500} : null)
           }
           floatingLabelText={Translate.get('last_name')}
-          onChange={this._onChangeLastName} />
+          onChange={this._onChangeLastName}
+          style={{display: 'block', fontSize: '1.5em'}}/>
         <TextField
-          style={{display: 'block', fontSize: '1.5em'}}
           type='text'
           value={this.state.email}
           errorText={emailError ? 'made mistake' : null}
@@ -71,9 +72,9 @@ const LunchFormIntro = React.createClass({
               emailError ?  {color: Color.red500} : null)
           }
           floatingLabelText={Translate.get('email')}
-          onChange={this._onChangeEmail} />
+          onChange={this._onChangeEmail}
+          style={{display: 'block', fontSize: '1.5em'}}/>
         <TextField
-          style={{display: 'block', fontSize: '1.5em'}}
           id='page-one-phone'
           type='text'
           value={this.state.phone}
@@ -84,12 +85,16 @@ const LunchFormIntro = React.createClass({
               phoneError ?  {color: Color.red500} : null)
           }
           floatingLabelText={Translate.get('phone')}
-          onChange={this._onChangePhone} />
+          onChange={this._onChangePhone}
+          style={{display: 'block', fontSize: '1.5em'}}/>
         <RaisedButton
           backgroundColor={Color.green500}
           label='continue'
-          secondary={true}
-          onClick={this._onSubmit} />
+          labelColor='white'
+          onClick={this._onSubmit}
+          style={{
+
+          }}/>
       </div>
     );
   },
@@ -139,15 +144,11 @@ const LunchFormIntro = React.createClass({
     }
   },
   _checkForErrors: function() {
-    let errors = [];
-
     ['first_name', 'last_name'].forEach((field) => {
-      if (this.state[field].length > 0) {
-        errors.push(field);
+      if (this.state[field].length <= 0) {
+        this.state.errors.set(field, true);
       }
     });
-
-
     return ['a'];
   }
 });
